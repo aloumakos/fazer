@@ -1,0 +1,101 @@
+version: "3"
+
+services:
+  #Persistent database
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: securepass123!
+      POSTGRES_DB: backend
+    ports:
+      - "5432:5432"
+    networks:
+      main:
+        ipv4_address: 172.18.1.2
+  #Port redirection and load balancer
+  # frontend:
+  #   container_name: frontend
+  #   build:
+  #     dockerfile: frontend/Dockerfile
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     main:
+  #       ipv4_address: 172.18.1.6
+
+  #In memory cache/session database, TODO: implement it in the future
+  #  redis:
+  #    container_name: redis-springboot-cache
+  #    image: redis:latest
+  #    command:
+  #      - /bin/sh
+  #      - -c
+  #      - redis-server --appendonly yes --requirepass "secure123!"
+  #    networks:
+  #      redis_net:
+  #        ipv4_address: 172.19.1.10
+
+  #actual server
+  backend:
+    container_name: backend
+    build:
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - LIBCLANG_PATH=/usr/lib/libclang.so
+    networks:
+      main:
+        ipv4_address: 172.18.1.4
+    depends_on:
+      - postgres
+  #      - redis
+
+  pythonserver:
+    container_name: python-server
+    build:
+      dockerfile: pythonserver/Dockerfile
+    environment:
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
+    ports:
+      - "6020:6020"
+    networks:
+        main:
+            ipv4_address: 172.18.1.12
+    depends_on:
+      - backend
+
+
+#  vsftpd:
+#    build:
+#      dockerfile: misc/ftp/Dockerfile
+#    container_name: fileserver
+#    environment:
+#      - FTP_USER=user
+#      - FTP_PASS=password
+#      - FTP_PASSIVE_PORTS=21100-21110
+#      - PASV_ADDRESS=0.0.0.0
+#      - PASV_MIN_PORT=21100
+#      - PASV_MAX_PORT=21110
+#      - PASV_ADDRESS_RESOLVE=YES
+#    ports:
+#      - "20:20"
+#      - "21:21"
+#      - "21100-21110:21100-21110"
+#    networks:
+#      main:
+#        ipv4_address: 172.18.1.10
+
+
+#Networks
+networks:
+  main:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.1.0/24

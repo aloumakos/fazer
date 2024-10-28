@@ -1,0 +1,6 @@
+example/
+test.ipynb
+lfw/
+/**/*.pyc
+.env
+app.py

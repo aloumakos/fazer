@@ -1,0 +1,101 @@
+.bouncing-loader {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .bouncing-loader > div {
+    width: 16px;
+    height: 16px;
+    margin: 3px 6px;
+    border-radius: 50%;
+    background-color: #b45050;
+    opacity: 1;
+    animation: bouncing-loader 0.6s infinite alternate;
+  }
+
+  @keyframes bouncing-loader {
+    to {
+      opacity: 0.1;
+      transform: translateY(-16px);
+    }
+  }
+  
+  .bouncing-loader > div:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .bouncing-loader > div:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .dropzone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-width: 2px;
+    border-radius: 2px;
+    border-color: #eeeeee;
+    border-style: dashed;
+    background-color: #fafafa;
+    color: #bdbdbd;
+    outline: none;
+    transition: border .24s ease-in-out;
+    }
+
+    .thumbsContainer {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      width: 70%;
+      margin: auto;
+    
+    }
+    
+        
+    
+    .thumb {
+      display: inline-flex;
+      border-radius: 2px;
+      border: 1px solid #eaeaea;
+      margin-bottom: 8px;
+      margin-right: 8px;
+      width: 100px;
+      height: 100px;
+      padding: 4px;
+      box-sizing: border-box;
+      }
+    
+        
+    
+      .thumbInner {
+          display: flex;
+            min-width: 0px;
+            overflow: hidden;
+        }
+    
+      .dropstyle {
+          flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-width: 2px;
+            border-radius: 2px;
+            border-color: #eeeeee;
+            border-style: dashed;
+            background-color: #fafafa;
+            color: #bdbdbd;
+            outline: none;
+            transition: border .24s ease-in-out;
+        }
+
+        .imgThumb {
+                  display: block;
+                    width:auto;
+                    height: 100%;
+        }
+
+    

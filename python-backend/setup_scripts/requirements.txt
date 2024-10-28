@@ -1,0 +1,11 @@
+numpy
+opencv-python
+torch 
+torchvision --extra-index-url https://download.pytorch.org/whl/rocm5.2
+matplotlib
+flask
+requests
+sqlalchemy
+git+https://github.com/elliottzheng/face-detection.git@master
+flask_cors
+psycopg2
